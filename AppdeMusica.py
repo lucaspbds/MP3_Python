@@ -4,6 +4,7 @@ cores = {'limpa': '\033[m',
          'ciano': '\033[0;0m',
          'verde': '\033[1;32m',
          'vermelho': '\033[0;31m',
+         'vermelhoBold': '\033[1;31m',
          'azul': '\033[0;36m',
          'amarelo': '\033[1;33m',
          'branco': '\033[1;97m'
@@ -12,6 +13,7 @@ pygame.init()
 pygame.mixer.init()
 playlist = []
 playlist_queue = []
+pasta = 'musica/'
 
 
 class MP3:
@@ -27,6 +29,15 @@ class MP3:
     def despausar(self):
         pygame.mixer.music.unpause()
 
+    def tocarmusica(self):
+        for music in playlist:
+            pygame.mixer.music.load(music)
+            pygame.mixer.music.play()
+            pygame.mixer.music.set_endevent(pygame.USEREVENT)
+            while pygame.mixer.music.get_busy():
+                pygame.time.wait(100)
+        # pygame.mixer.music.play()
+
 
 def titulos(titulo):
     print(
@@ -37,15 +48,6 @@ def bemVindo():
     print(
         f'\n{cores["vermelho"]}Seja Bem-Vindo a Playlist de música! Espero que se divirta com as músicas em catálogo =) '
         f'Em breve terá mais músicas...{cores["limpa"]}')
-
-
-def tocarmusica():
-    for music in playlist:
-        pygame.mixer.music.load(music)
-        pygame.mixer.music.play()
-        pygame.mixer.music.set_endevent(pygame.USEREVENT)
-        while pygame.mixer.music.get_busy():
-            pygame.time.wait(100)
 
 
 def menu():
@@ -71,40 +73,40 @@ bemVindo()
 titulos('Playlist de música')
 menu()
 while True:
-    op = MP3(input(f'\n{cores["branco"]}Digite sua escolha: {cores["limpa"]}').strip().upper())
-    if op == 'ADICIONAR':
-        op.adicionarMusica()
-    if op == 'PAUSAR':
-        op.pausar()
-    if op == 'DESPAUSAR':
-        op.despausar()
-    if op == '1':
-        playlist.append("musica/MeuCafofo-JoãoGomes.mp3")
-    if op == '2':
-        playlist.append("musica/Dengo-JoãoGomes.mp3")
-    if op == '3':
-        playlist.append("musica/FarWay-Nickelback.mp3")
-    if op == '4':
-        playlist.append("musica/NeverGonnaBeAlone-Nickelback.mp3")
-    if op == '5':
-        playlist.append("musica/IronMan-BlackSabbath.mp3")
-    if op == '6':
-        playlist.append("musica/WIU - Oração.mp3")
-    if op == '7':
-        playlist.append("musica/Lil Whind - Tempo.wav")
-    if op == '8':
-        playlist.append("musica/Lil Whind - Mó Tristeza.wav")
-    if op == '9':
-        playlist.append("musica/Lil Whind - Mãe.wav")
-    if op == '10':
-        playlist.append("musica/Tô sem você  - João Gomes.mp3")
-    if op == '11':
-        playlist.append("musica/Coldplay - A Sky Full Of Stars.mp3")
-    if op == 'FIM':
-        print('\033[1;31mPrograma finalizado com sucesso!'
-              '\n\033[1;33mEspero que tenha gostado da playlist =)')
+    print(f'{cores["vermelho"]}Fila de Reprodução:{cores["limpa"]} {playlist}')
+    mp3 = MP3(input(f'\n{cores["branco"]}Digite sua escolha: {cores["limpa"]}').strip().upper())
+    if mp3.opcao == 'ADICIONAR':
+        mp3.adicionarMusica()
+    if mp3.opcao == 'PAUSAR':
+        mp3.pausar()
+    if mp3.opcao == 'DESPAUSAR':
+        mp3.despausar()
+    if mp3.opcao == 'FIM':
+        print(f'{cores["vermelhoBold"]}Programa finalizado com sucesso!'
+              f'\n{cores["amarelo"]}Espero que tenha gostado da playlist =)')
         break
-    if op == 'PLAY':
-        tocarmusica()
-        pygame.mixer.music.play()
-    print(f'\033[0;31mFila de Reprodução:\033[m {playlist}')
+    if mp3.opcao == 'PLAY':
+        mp3.tocarmusica()
+
+    if mp3.opcao == '1':
+        playlist.append(f"{pasta}MeuCafofo-JoãoGomes.mp3")
+    if mp3.opcao == '2':
+        playlist.append(f"{pasta}Dengo-JoãoGomes.mp3")
+    if mp3.opcao == '3':
+        playlist.append(f"{pasta}FarWay-Nickelback.mp3")
+    if mp3.opcao == '4':
+        playlist.append(f"{pasta}NeverGonnaBeAlone-Nickelback.mp3")
+    if mp3.opcao == '5':
+        playlist.append(f"{pasta}IronMan-BlackSabbath.mp3")
+    if mp3.opcao == '6':
+        playlist.append(f"{pasta}WIU - Oração.mp3")
+    if mp3.opcao == '7':
+        playlist.append(f"{pasta}Lil Whind - Tempo.wav")
+    if mp3.opcao == '8':
+        playlist.append(f"{pasta}Lil Whind - Mó Tristeza.wav")
+    if mp3.opcao == '9':
+        playlist.append(f"{pasta}Lil Whind - Mãe.wav")
+    if mp3.opcao == '10':
+        playlist.append(f"{pasta}Tô sem você  - João Gomes.mp3")
+    if mp3.opcao == '11':
+        playlist.append(f"{pasta}Coldplay - A Sky Full Of Stars.mp3")
