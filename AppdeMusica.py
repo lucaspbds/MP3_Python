@@ -28,9 +28,9 @@ class MP3:
         pygame.mixer.music.unpause()
 
 
-def titulo():
+def titulos(titulo):
     print(
-        f'{cores["azul"]}-=-' * 15 + f'{cores["amarelo"]}Playlist de música{cores["limpa"]}' + f'{cores["azul"]}-=-{cores["limpa"]}' * 15)
+        f'{cores["azul"]}-=-' * 15 + f'{cores["amarelo"]}{titulo}{cores["limpa"]}' + f'{cores["azul"]}-=-{cores["limpa"]}' * 15)
 
 
 def bemVindo():
@@ -57,16 +57,18 @@ def menu():
 {cores["verde"]}5  {cores["ciano"]}IronMan-BlackSabbath              {cores["verde"]}10 {cores["ciano"]}Tô sem você - João Gomes
 """)
 
-    print('\033[0;36m-=-' * 15 + '\033[1;33mComandos do programa' + '\033[0;36m-=-\033[m' * 15)
-    print(f'{cores["verde"]}Pausar {cores["limpa"]}- Pausar a música'
-          f'\n{cores["verde"]}Despausar {cores["limpa"]}- Voltar a reproduzir a música'
-          f'\n{cores["verde"]}Adicionar {cores["limpa"]}- Adicionar uma música na fila'
-          f'\n{cores["verde"]}Play {cores["limpa"]}- Começar a música'
-          f'\n{cores["verde"]}Fim {cores["limpa"]}- Finalizar o programa')
+    titulos('Comandos do programa')
+    print(f"""
+{cores["verde"]}Pausar {cores["limpa"]}- Pausar a música
+{cores["verde"]}Despausar {cores["limpa"]}- Voltar a reproduzir a música
+{cores["verde"]}Adicionar {cores["limpa"]}- Adicionar uma música na fila    
+{cores["verde"]}Play {cores["limpa"]}- Começar a música
+{cores["verde"]}Fim {cores["limpa"]}- Finalizar o programa
+""")
 
 
 bemVindo()
-titulo()
+titulos('Playlist de música')
 menu()
 while True:
     op = MP3(input(f'\n{cores["branco"]}Digite sua escolha: {cores["limpa"]}').strip().upper())
