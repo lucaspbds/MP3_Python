@@ -1,5 +1,5 @@
 from pygame import mixer
-from playmusic.playMusica import playMusica
+from playMusica import playMusica
 
 cores = {'limpa': '\033[m',
          'ciano': '\033[0;0m',
@@ -13,7 +13,7 @@ cores = {'limpa': '\033[m',
 mixer.init()
 playlist = []
 playlist_queue = []
-pasta = 'playmusic/musicas/'
+pasta = 'musicas/'
 
 
 class MP3:
