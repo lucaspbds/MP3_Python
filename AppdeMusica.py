@@ -1,4 +1,5 @@
-import pygame
+from pygame import mixer
+from playmusic.playMusica import playMusica
 
 cores = {'limpa': '\033[m',
          'ciano': '\033[0;0m',
@@ -9,11 +10,10 @@ cores = {'limpa': '\033[m',
          'amarelo': '\033[1;33m',
          'branco': '\033[1;97m'
          }
-pygame.init()
-pygame.mixer.init()
+mixer.init()
 playlist = []
 playlist_queue = []
-pasta = 'musica/'
+pasta = 'playmusic/musicas/'
 
 
 class MP3:
@@ -24,19 +24,10 @@ class MP3:
         playlist.append(input('Escolha a música para ser adicionada: '))
 
     def pausar(self):
-        pygame.mixer.music.pause()
+        mixer.music.pause()
 
     def despausar(self):
-        pygame.mixer.music.unpause()
-
-    def tocarmusica(self):
-        for music in playlist:
-            pygame.mixer.music.load(music)
-            pygame.mixer.music.play()
-            pygame.mixer.music.set_endevent(pygame.USEREVENT)
-            while pygame.mixer.music.get_busy():
-                pygame.time.wait(100)
-        # pygame.mixer.music.play()
+        mixer.music.unpause()
 
 
 def titulos(titulo):
@@ -86,7 +77,7 @@ while True:
               f'\n{cores["amarelo"]}Espero que tenha gostado da playlist =)')
         break
     if mp3.opcao == 'PLAY':
-        mp3.tocarmusica()
+        playMusica(playlist)
 
     if mp3.opcao == '1':
         playlist.append(f"{pasta}MeuCafofo-JoãoGomes.mp3")
